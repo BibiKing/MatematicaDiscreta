@@ -2,21 +2,32 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conjunto <T extends Comparable>{
+public class Conjunto <T extends Comparable<T>>{
     List<T> elementos;
     
     public Conjunto(){
-        this.elementos = null;
+        this.elementos = new ArrayList();
     }
     
     public Conjunto(List<T> elementos){
-        this.elementos.addAll(elementos);
+        this.elementos = new ArrayList(elementos);
+    }
+    
+    public Conjunto(Conjunto conj){
+        this.elementos = conj.elementos;
+    }
+    
+    public void imprimir(){
+        System.out.print("{ ");
+        for(int i=0; i<this.tamanho(); i++){
+            System.out.print(this.elemento(i));
+            System.out.print(" ;");
+        }
+        System.out.println("\b }");
     }
     
     public void adicionar(T e){
-
-           this.elementos.add(e); 
-       
+            this.elementos.add(e);
     }
     
     public void adicionarTodos(List<T> l){
@@ -38,16 +49,16 @@ public class Conjunto <T extends Comparable>{
     
     public boolean contemElemento(T e){
         for(T elemento: elementos){
-            if(elemento.compareTo(e) == 0){
+            if(elemento == e){
                 return true;
             }
         }    
         return false;        
     }
     
-    public boolean estaContido(Conjunto C){
+    public boolean estaContido(Conjunto conj){
         for(T elemento: elementos){
-            if(!C.contemElemento(elemento)){
+            if(!conj.contemElemento(elemento)){
                 return false;
             }
         }
@@ -103,12 +114,12 @@ public class Conjunto <T extends Comparable>{
         
         for(int i=0; i<this.tamanho(); i++){
             for(int j=0; j<conj.tamanho(); j++){
-                List<T> e = new ArrayList(2);
+                ParOrdenado p = new ParOrdenado();
                 
-                e.add( (T) this.elemento(i) );
-                e.add( (T) conj.elemento(j));
+                p.definir(this.elemento(i), conj.elemento(j));
                 
-                produtoCartesiano.adicionar((Comparable) e);
+                /*Conseguir adicionar a Classe que eu criei*/
+                produtoCartesiano.elementos.add((Comparable) p.toString());
             }
         }
         
