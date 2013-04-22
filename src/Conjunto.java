@@ -17,6 +17,17 @@ public class Conjunto <T extends Comparable<T>>{
         this.elementos = conj.elementos;
     }
     
+    public boolean estaVazio(){
+        
+        if(elementos == null)
+            return true;
+        else
+        if(elementos.isEmpty())
+            return true;
+        else
+        return false;
+    }
+    
     public void imprimir(){
         System.out.print("{ ");
         for(int i=0; i<this.tamanho(); i++){
@@ -24,6 +35,17 @@ public class Conjunto <T extends Comparable<T>>{
             System.out.print(" ;");
         }
         System.out.println("\b }");
+    }
+    
+    public void limparConjunto(){
+        this.elementos.clear();
+    }
+    
+    public boolean eIgual(Conjunto conj){
+        if(this.estaContido(conj) && conj.estaContido(this))
+            return true;
+        else
+            return false;
     }
     
     public void adicionar(T e){
@@ -118,12 +140,12 @@ public class Conjunto <T extends Comparable<T>>{
                 
                 p.definir(this.elemento(i), conj.elemento(j));
                 
-                /*Conseguir adicionar a Classe que eu criei*/
-                produtoCartesiano.elementos.add((Comparable) p.toString());
+                produtoCartesiano.adicionar((Comparable) p);
             }
         }
         
         return produtoCartesiano;
     } 
+    
 
 }
